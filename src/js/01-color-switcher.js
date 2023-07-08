@@ -4,3 +4,20 @@ const refs = {
     bodyEl: document.body
 };
 
+let intervalId = null;
+
+refs.startBtnEl.addEventListener('click', startChangeColorBody);
+function startChangeColorBody() {
+    refs.startBtnEl.disabled = true;
+    if (!intervalId) {
+        intervalId = setInterval(() => {
+            refs.bodyEl.style.backgroundColor = getRandomHexColor()
+        }, 1000);
+    }
+}
+
+function getRandomHexColor() {
+    return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, 0)}`;
+  }
+
+
