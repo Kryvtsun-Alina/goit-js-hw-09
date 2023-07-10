@@ -32,26 +32,6 @@ function getRandomHexColor() {
         refs.bodyEl.style.backgroundColor = "#FFFFFF";
     }
   }
-  const clients = ["Mango", "Poly", "Ajax"];
-  clients[0] = "Kivi";
-  clients[2] = "Stiv";
-  console.log(clients);
-
-  const clientToFind = 'Stiv';
-  let message;
-  for (let i = 0; i < clients.length; i += 1) {
-    const element = clients[i];
-    console.log(element)
-
-   
-  }for (const client of clients) {
-    if (client === clientToFind) {
-       message = "Клієнт з таким ім'ям є в базі даних!";
-       break;
-    }
-    
-
-  }
 
 
 
