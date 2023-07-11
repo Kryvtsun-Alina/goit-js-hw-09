@@ -17,32 +17,21 @@ form.addEventListener('submit', handleSubmit);
 function handleSubmit(event) {
   event.preventDefault();
 
-  const formData = new FormData(event.target);
-  const delay = parseInt(formData.get('delay'));
-  const step = parseInt(formData.get('step'));
-  const amount = parseInt(formData.get('amount'));
+  const delayInput = document.querySelector('input[name="delay"]');
+  const stepInput = document.querySelector('input[name="step"]');
+  const amountInput = document.querySelector('input[name="amount"]');
 
-  const promises = [];
-  let currentDelay = delay;
+  const delay = parseInt(delayInput.value);
+  const step = parseInt(stepInput.value);
+  const amount = parseInt(amountInput.value);
 
-  for (let i = 1; i <= amount; i++) {
-    promises.push(createPromise(i, currentDelay));
-    currentDelay += step;
-  }
-
-  Promise.allSettled(promises)
-    .then((results) => {
-      results.forEach((result) => {
-        if (result.status === 'fulfilled') {
-          console.log(`✅ Fulfilled promise ${result.value.position} in ${result.value.delay}ms`);
-        } else {
-          console.log(`❌ Rejected promise ${result.reason.position} in ${result.reason.delay}ms`);
-        }
+  for (let i = 0; i < amount; i++) {
+    createPromise(i + 1, delay + i * step)
+      .then(({ position, delay }) => {
+        console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
+      })
+      .catch(({ position, delay }) => {
+        console.log(`❌ Rejected promise ${position} in ${delay}ms`);
       });
-    })
-    .catch((error) => {
-      console.error('Error occurred:', error);
-    });
-
-  form.reset();
+  }
 }
